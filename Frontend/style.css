@@ -1,0 +1,114 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f1f3f4;
+  margin: 0;
+  padding: 0;
+  color: #202124;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding: 40px 20px;
+  min-height: 100vh;
+}
+
+.card {
+  background: #fff;
+  padding: 30px 25px;
+  border-radius: 12px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.05);
+}
+
+h1 {
+  text-align: center;
+  color: #1a73e8;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  transition: border 0.2s;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: #1a73e8;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+button {
+  width: 100%;
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #0c56d0;
+}
+
+#resultado {
+  margin-top: 20px;
+  padding: 15px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 15px;
+  box-shadow: inset 0 0 0 1px #dadce0;
+}
+
+.feedback {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.feedback button {
+  width: auto;
+  padding: 10px 20px;
+  margin: 0 10px;
+}
+
+.feedback button.ok {
+  background-color: #34a853;
+}
+
+.feedback button.bad {
+  background-color: #ea4335;
+}
+
+#mensaje-feedback {
+  margin-top: 12px;
+  color: #34a853;
+  font-weight: bold;
+}

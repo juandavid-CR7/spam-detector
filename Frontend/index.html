@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detector de Spam</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+  <div class="wrapper">
+    <div class="card">
+      <h1><i class="fas fa-shield-alt"></i> Detector de Spam</h1>
+
+      <div class="form-group">
+        <label><i class="fas fa-envelope"></i> Asunto</label>
+        <input type="text" id="asunto" placeholder="Asunto del correo" />
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-globe"></i> Dominio del remitente</label>
+        <input type="text" id="dominio" placeholder="ej. correo@dominio.com" />
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-clock"></i> Hora de envío</label>
+        <input type="datetime-local" id="hora" />
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-shield"></i> Nivel de protección</label>
+        <select id="nivel">
+          <option value="bajo">Bajo</option>
+          <option value="medio" selected>Medio</option>
+          <option value="alto">Alto</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label><i class="fas fa-edit"></i> Contenido</label>
+        <textarea id="mensaje" placeholder="Escribe el contenido del correo aquí..."></textarea>
+      </div>
+
+      <button onclick="clasificar()"><i class="fas fa-search"></i> Clasificar</button>
+
+      <div id="resultado" class="card resultado"></div>
+
+      <div id="feedback" class="feedback">
+        <p>¿Fue correcta la predicción?</p>
+        <button onclick="enviarFeedback(true)" class="ok"><i class="fas fa-thumbs-up"></i> Sí</button>
+        <button onclick="enviarFeedback(false)" class="bad"><i class="fas fa-thumbs-down"></i> No</button>
+        <p id="mensaje-feedback"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
