@@ -94,6 +94,30 @@ def guardar_correo():
         f.write(linea)
 
     return jsonify({"estado": "Correo guardado exitosamente ✅"})
+@app.route('/agregar_correo', methods=['POST'])
+def agregar_correo():
+    data = request.get_json()
+    texto = data.get('texto', '')
+    etiqueta = data.get('etiqueta', '').lower()
+    remitente = data.get('remitente', '').strip()
+
+    if not texto or etiqueta not in ['spam', 'ham'] or not remitente:
+        return jsonify({"mensaje": "❌ Faltan datos obligatorios"}), 400
+
+    # Guardar en dataset_personal.csv
+    with open("dataset_personal.csv", "a", encoding="utf-8") as f:
+        f.write(f"{etiqueta},{texto.replace(',', ';')}\n")
+
+    # Guardar remitente en lista correspondiente
+    if etiqueta == "spam":
+        with open("lista_bloqueados.txt", "a", encoding="utf-8") as f:
+            f.write(remitente + "\n")
+    else:
+        with open("lista_permitidos.txt", "a", encoding="utf-8") as f:
+            f.write(remitente + "\n")
+
+    return jsonify({"mensaje": "✅ Correo y remitente guardados correctamente"})
+
 
 if __name__ == '__main__':
     from watchdog.observers import Observer
