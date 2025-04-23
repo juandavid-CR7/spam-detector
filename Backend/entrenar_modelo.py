@@ -52,4 +52,4 @@ model.fit(X_train, y_train)
 joblib.dump(model, "modelo_spam.pkl")
 joblib.dump(vectorizer, "vectorizer.pkl")
 
-print("✅ Modelo entrenado y guardado usando dataset_personal.csv")
+print(" Modelo entrenado y guardado usando dataset_personal.csv")
