@@ -78,7 +78,7 @@ def feedback():
         return jsonify({"error": "Faltan datos"}), 400
 
     fila = f'"{mensaje.replace("\"", "\'")}",{prediccion},{correcto}\n'
-    with open("backend/feedback.csv", "a", encoding="utf-8") as f:
+    with open("Backend/feedback.csv", "a", encoding="utf-8") as f:
         f.write(fila)
     return jsonify({"estado": "Feedback guardado correctamente"})
 
