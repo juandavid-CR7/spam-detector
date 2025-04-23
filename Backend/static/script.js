@@ -10,7 +10,7 @@ async function clasificar() {
 
   if (!mensaje.trim()) return alert("Escribe un mensaje primero ");
 
-  const res = await fetch('http://localhost:5000/clasificar', {
+  const res = await fetch('http://192.168.100.37:5001/clasificar', {  // Cambié localhost:5000 por 192.168.100.37:5001
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ mensaje, asunto, dominio, horaEnvio, nivel })
@@ -40,7 +40,7 @@ async function clasificar() {
 }
 
 async function enviarFeedback(correcto) {
-  await fetch('http://localhost:5000/feedback', {
+  await fetch('http://192.168.100.37:5001/feedback', {  // Cambié localhost:5000 por 192.168.100.37:5001
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
