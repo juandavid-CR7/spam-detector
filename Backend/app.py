@@ -1,7 +1,6 @@
-from flask import Flask, request, jsonify
-import joblib
-from flask import render_template
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
+import joblib
 import os
 
 from utils import (
@@ -11,18 +10,18 @@ from utils import (
     detectar_razones_de_spam
 )
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='Frontend')
 CORS(app)
 
 # Cargar modelo y vectorizador
 model = joblib.load("modelo_spam.pkl")
 vectorizer = joblib.load("vectorizer.pkl")
 
-@app.route('/clasificar', methods=['POST'])
 @app.route("/")
 def home():
     return render_template("index.html")
 
+@app.route('/clasificar', methods=['POST'])
 def clasificar():
     data = request.get_json()
     mensaje = data.get('mensaje', '')
@@ -44,7 +43,6 @@ def clasificar():
     ]
     tokens_top = [token for token, peso in sorted(tokens_pesados, key=lambda x: x[1], reverse=True)[:5]]
     razones = detectar_razones_de_spam(mensaje)
-
     score = evaluar_factores_extra(asunto, dominio, hora_envio)
     estado_lista = revisar_listas_personalizadas(dominio)
 
@@ -99,6 +97,7 @@ def guardar_correo():
         f.write(linea)
 
     return jsonify({"estado": "Correo guardado exitosamente ✅"})
+
 @app.route('/agregar_correo', methods=['POST'])
 def agregar_correo():
     data = request.get_json()
@@ -109,11 +108,9 @@ def agregar_correo():
     if not texto or etiqueta not in ['spam', 'ham'] or not remitente:
         return jsonify({"mensaje": "❌ Faltan datos obligatorios"}), 400
 
-    # Guardar en dataset_personal.csv
     with open("dataset_personal.csv", "a", encoding="utf-8") as f:
         f.write(f"{etiqueta},{texto.replace(',', ';')}\n")
 
-    # Guardar remitente en lista correspondiente
     if etiqueta == "spam":
         with open("lista_bloqueados.txt", "a", encoding="utf-8") as f:
             f.write(remitente + "\n")
@@ -123,13 +120,11 @@ def agregar_correo():
 
     return jsonify({"mensaje": "✅ Correo y remitente guardados correctamente"})
 
-
 if __name__ == '__main__':
     from watchdog.observers import Observer
     from watchdog.events import FileSystemEventHandler
     import subprocess
     import time
-    import os
     import sys
 
     class ReloadOnChange(FileSystemEventHandler):
@@ -144,9 +139,6 @@ if __name__ == '__main__':
 
     try:
         app.run(host="0.0.0.0", port=5001, debug=False, use_reloader=False)
-
-
     finally:
         observer.stop()
         observer.join()
-
