@@ -36,14 +36,14 @@ Proyecto Spam/
 
 ## ⚙️ Requisitos
 
-### 1. Requisitos del sistema
+1. **Requisitos del sistema**
 
-- **Ubuntu** 20.04+ o cualquier sistema compatible con Python y Flask
-- **Python 3.6+**
-- **pip** para instalar las dependencias de Python
-- **VirtualBox** o algún VPS (opcional para despliegue en servidor)
+   - **Ubuntu** 20.04+ o cualquier sistema compatible con Python y Flask
+   - **Python 3.6+**
+   - **pip** para instalar las dependencias de Python
+   - **VirtualBox** o algún VPS (opcional para despliegue en servidor)
 
-### 2. Dependencias
+2. **Dependencias**
 
 ```bash
 # Crear un entorno virtual
@@ -56,7 +56,7 @@ pip install -r requirements.txt
 
 ## 💻 Ejecución local
 
-1. Iniciar el servidor Flask
+1. **Iniciar el servidor Flask**
    Para correr el servidor localmente, simplemente ejecuta:
 
 ```bash
@@ -71,7 +71,7 @@ http://192.168.100.37:5001
 
 ## 🌐 Despliegue en servidor
 
-### 1. Instalar dependencias
+1. **Instalar dependencias**
 
 ```bash
 # Instalar dependencias de Python
@@ -81,7 +81,7 @@ sudo apt install python3-pip python3-dev
 pip3 install -r requirements.txt
 ```
 
-### 2. Configurar Gunicorn (servidor WSGI para Flask)
+2. **Configurar Gunicorn (servidor WSGI para Flask)**
 
 ```bash
 pip install gunicorn
@@ -95,7 +95,7 @@ gunicorn --workers 3 --bind 0.0.0.0:5001 app:app
 
 Esto hará que el servidor Flask sea accesible desde tu servidor remoto en http://<IP_DEL_SERVIDOR>:5001.
 
-### 3. Configurar Nginx (opcional para producción)
+3. **Configurar Nginx (opcional para producción)**
 
 ```
 nginx
@@ -114,7 +114,7 @@ server {
 }
 ```
 
-### 4. Abrir puerto en el firewall
+4. **Abrir puerto en el firewall**
 
 Asegúrate de permitir el puerto 5001 si estás usando UFW:
 
@@ -122,7 +122,7 @@ Asegúrate de permitir el puerto 5001 si estás usando UFW:
 sudo ufw allow 5001
 ```
 
-### 5. Acceder a la aplicación desde el navegador
+5. **Acceder a la aplicación desde el navegador**
 
 Una vez que todo esté configurado, podrás acceder a la aplicación desde el navegador en:
 
