@@ -40,7 +40,7 @@ async function clasificar() {
 }
 
 async function enviarFeedback(correcto) {
-  await fetch('http://192.168.1.174:5001/feedback', {  // Cambié a 192.168.1.174:5001
+  await fetch('http://192.168.1.174:5001/feedback', {  // Cambié a la IP correcta
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -48,7 +48,27 @@ async function enviarFeedback(correcto) {
       prediccion: ultimaPrediccion,
       correcto: correcto
     })
+  })
+  .then(response => response.json())  // Convertir la respuesta en JSON
+  .then(data => {
+    // Asegúrate de que el campo 'estado' se recibe correctamente
+    if (data.estado) {
+      document.getElementById('mensaje-feedback').textContent = data.estado;  // Mostrar mensaje de éxito
+    } else {
+      document.getElementById('mensaje-feedback').textContent = "❌ Hubo un error al guardar el feedback.";
+    }
+  })
+  .catch(error => {
+    // Si hay un error de conexión
+    document.getElementById('mensaje-feedback').textContent = "❌ Error en la conexión";
   });
+
+  // Limpiar campos y ocultar feedback
+  document.getElementById('feedback').style.display = "none";
+  document.getElementById('mensaje').value = "";
+  document.getElementById('resultado').innerHTML = "";
+}
+
 
   document.getElementById('mensaje-feedback').textContent = "✅ ¡Gracias por tu feedback!";
   document.getElementById('feedback').style.display = "none";
