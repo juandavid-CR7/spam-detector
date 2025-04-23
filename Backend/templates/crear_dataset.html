@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>Agregar Correo al Dataset</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
@@ -16,7 +16,6 @@
       padding: 40px;
     }
     .container {
-        
       max-width: 600px;
       background: white;
       padding: 25px;
@@ -68,46 +67,6 @@
     <p class="msg" id="mensaje"></p>
   </div>
 
-  <script>
-    async function guardarCorreo() {
-      const contenido = document.getElementById("contenido").value;
-      const remitente = document.getElementById("remitente").value;
-      const etiqueta = document.getElementById("etiqueta").value;
-      const mensaje = document.getElementById("mensaje");
-  
-      if (!contenido.trim() || !remitente.trim()) {
-        mensaje.textContent = "Por favor completa todos los campos.";
-        mensaje.style.color = "red";
-        return;
-      }
-  
-      try {
-        const res = await fetch("http://localhost:5000/agregar_correo", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            texto: contenido,
-            etiqueta: etiqueta,
-            remitente: remitente
-          })
-        });
-  
-        const data = await res.json();
-  
-        if (res.ok) {
-          mensaje.textContent = data.mensaje;
-          mensaje.style.color = "green";
-          document.getElementById("contenido").value = "";
-          document.getElementById("remitente").value = "";
-        } else {
-          mensaje.textContent = data.mensaje || "❌ Error inesperado.";
-          mensaje.style.color = "red";
-        }
-      } catch (error) {
-        mensaje.textContent = "❌ Error de red o servidor no disponible.";
-        mensaje.style.color = "red";
-      }
-    }
-  </script>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>

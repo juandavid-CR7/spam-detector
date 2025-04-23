@@ -10,7 +10,8 @@ from utils import (
     detectar_razones_de_spam
 )
 
-app = Flask(__name__, static_folder='Frontend')
+app = Flask(__name__, static_folder='static', template_folder='templates')
+
 CORS(app)
 
 # Cargar modelo y vectorizador
