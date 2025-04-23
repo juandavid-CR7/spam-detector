@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import joblib
+from flask import render_template
 from flask_cors import CORS
 import os
 
@@ -18,6 +19,10 @@ model = joblib.load("modelo_spam.pkl")
 vectorizer = joblib.load("vectorizer.pkl")
 
 @app.route('/clasificar', methods=['POST'])
+@app.route("/")
+def home():
+    return render_template("index.html")
+
 def clasificar():
     data = request.get_json()
     mensaje = data.get('mensaje', '')
