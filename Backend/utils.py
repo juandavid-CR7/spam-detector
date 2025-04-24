@@ -68,4 +68,3 @@ def revisar_listas_personalizadas(dominio):
     if dominio in permitidos:
         return "permitido"
     return "desconocido"
-

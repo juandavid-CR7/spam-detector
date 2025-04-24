@@ -123,26 +123,5 @@ def agregar_correo():
     return jsonify({"mensaje": "✅ Correo y remitente guardados correctamente"})
 
 if __name__ == '__main__':
-    from watchdog.observers import Observer
-    from watchdog.events import FileSystemEventHandler
-    import subprocess
-    import time
-    import os
-    import sys
-
-    class ReloadOnChange(FileSystemEventHandler):
-        def on_any_event(self, event):
-            print(" Cambios detectados, reiniciando...")
-            os.execv(sys.executable, ['python'] + sys.argv)
-
-    event_handler = ReloadOnChange()
-    observer = Observer()
-    observer.schedule(event_handler, '.', recursive=True)
-    observer.start()
-
-    try:
-        app.run(debug=True)
-    finally:
-        observer.stop()
-        observer.join()
-
+    print(" servidor iniciado en http://0.0.0.0:5001")
+    app.run(host="0.0.0.0", port=5001, debug=False)
