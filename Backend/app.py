@@ -11,7 +11,6 @@ from utils import (
 )
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-
 CORS(app)
 
 # Cargar modelo y vectorizador
@@ -25,7 +24,6 @@ def home():
 @app.route("/crear_dataset")
 def crear_dataset():
     return render_template("crear_dataset.html")
-
 
 @app.route('/clasificar', methods=['POST'])
 def clasificar():
@@ -79,12 +77,13 @@ def feedback():
     mensaje = data.get("mensaje", "")
     prediccion = data.get("prediccion", "")
     correcto = data.get("correcto", None)
+
     if not mensaje or correcto is None:
         return jsonify({"error": "Faltan datos"}), 400
 
     fila = f'"{mensaje.replace("\"", "\'")}",{prediccion},{correcto}\n'
     with open("feedback.csv", "a", encoding="utf-8") as f:
-     f.write(fila)
+        f.write(fila)
 
     return jsonify({"estado": "Feedback guardado correctamente"})
 
@@ -98,7 +97,7 @@ def guardar_correo():
     if not asunto or not mensaje or etiqueta not in ['spam', 'ham']:
         return jsonify({"error": "Datos incompletos"}), 400
 
-    dataset_path = "backend/dataset_personal.csv"
+    dataset_path = "dataset_personal.csv"
     linea = f"{etiqueta},{asunto} | {mensaje.replace(',', ';')}\n"
     with open(dataset_path, "a", encoding="utf-8") as f:
         f.write(linea)
@@ -128,5 +127,5 @@ def agregar_correo():
     return jsonify({"mensaje": "✅ Correo y remitente guardados correctamente"})
 
 if __name__ == '__main__':
-    print(" servidor iniciado en http://0.0.0.0:5001")
+    print("✅ Servidor iniciado en http://0.0.0.0:5001")
     app.run(host="0.0.0.0", port=5001, debug=False)

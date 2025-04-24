@@ -1,6 +1,8 @@
+
 let ultimoMensaje = '';
 let ultimaPrediccion = '';
 
+// region  Clasificar
 async function clasificar() {
   const asunto = document.getElementById('asunto').value;
   const dominio = document.getElementById('dominio').value;
@@ -38,9 +40,11 @@ async function clasificar() {
   ultimoMensaje = mensaje;
   ultimaPrediccion = data.prediccion;
 }
-
+ 
+// region  Feedback
 async function enviarFeedback(correcto) {
-  await fetch('http://192.168.1.176:5001/feedback', {  // Cambié a la IP correcta
+  // region Ip Server 1
+  await fetch('http://192.168.1.176:5001/feedback', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -49,28 +53,54 @@ async function enviarFeedback(correcto) {
       correcto: correcto
     })
   })
-  .then(response => response.json()) 
+  .then(response => response.json())
   .then(data => {
-    // Asegúrate de que el campo 'estado' se recibe correctamente
     if (data.estado) {
-      document.getElementById('mensaje-feedback').textContent = data.estado;  // Mostrar mensaje de éxito
+      document.getElementById('mensaje-feedback').textContent = data.estado;
     } else {
-      document.getElementById('mensaje-feedback').textContent = " Hubo un error al guardar el feedback.";
+      document.getElementById('mensaje-feedback').textContent = "❌ Hubo un error al guardar el feedback.";
     }
   })
   .catch(error => {
-    // Si hay un error de conexión
-    document.getElementById('mensaje-feedback').textContent = " Error en la conexión";
+    document.getElementById('mensaje-feedback').textContent = "❌ Error en la conexión";
   });
 
-  // Limpiar campos y ocultar feedback
   document.getElementById('feedback').style.display = "none";
   document.getElementById('mensaje').value = "";
   document.getElementById('resultado').innerHTML = "";
 }
 
+// region Guardar Correo
+async function guardarCorreo() {
+  const contenido = document.getElementById("contenido").value;
+  const remitente = document.getElementById("remitente").value;
+  const etiqueta = document.getElementById("etiqueta").value;
+  const mensajeBox = document.getElementById("mensaje");
 
-  document.getElementById('mensaje-feedback').textContent = "✅ ¡Gracias por tu feedback!";
-  document.getElementById('feedback').style.display = "none";
-  document.getElementById('mensaje').value = "";
-  document.getElementById('resultado').innerHTML = "";
+  if (!contenido.trim() || !remitente.trim()) {
+    mensajeBox.textContent = "❗ Por favor completa todos los campos.";
+    mensajeBox.style.color = "red";
+    return;
+  }
+  
+  // region Ip Server 2
+  const response = await fetch("http://192.168.1.176:5001/agregar_correo", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ texto: contenido, etiqueta: etiqueta, remitente: remitente })
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    mensajeBox.textContent = data.mensaje || "✅ Correo guardado exitosamente.";
+    mensajeBox.style.color = "green";
+  } else {
+    mensajeBox.textContent = data.mensaje || "❌ Error al guardar el correo.";
+    mensajeBox.style.color = "red";
+  }
+
+  document.getElementById("contenido").value = "";
+  document.getElementById("remitente").value = "";
+  document.getElementById("etiqueta").value = "spam";
+}
