@@ -22,6 +22,11 @@ vectorizer = joblib.load("vectorizer.pkl")
 def home():
     return render_template("index.html")
 
+@app.route("/crear_dataset")
+def crear_dataset():
+    return render_template("crear_dataset.html")
+
+
 @app.route('/clasificar', methods=['POST'])
 def clasificar():
     data = request.get_json()
