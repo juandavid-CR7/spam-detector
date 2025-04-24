@@ -64,7 +64,9 @@
       <option value="ham">No Spam</option>
     </select>
     <button onclick="guardarCorreo()">Guardar</button>
-    <a href="{{ url_for('home') }}">Volver a la pagina principal</a>
+    <a href="{{ url_for('home') }}" class="nav-button">
+      <i class="fas fa-arrow-left"></i>Volver a la pagina principal
+    </a>
     <p class="msg" id="mensaje"></p>
   </div>
 

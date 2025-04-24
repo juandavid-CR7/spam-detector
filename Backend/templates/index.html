@@ -6,7 +6,9 @@
   <title>Detector de Spam</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <a href="{{url_for('crear_dataset')}}">Ir a crear dataset</a>
+  <a href="{{url_for('crear_dataset')}}" class="nav-button">
+    <i class="fas fa-database"></i>Ir a crear dataset
+  </a>
 </head>
 <body>
   <div class="wrapper">
