@@ -12,7 +12,7 @@ async function clasificar() {
 
   if (!mensaje.trim()) return alert("Escribe un mensaje primero ");
 
-  const res = await fetch('http://192.168.1.176:5001/clasificar', {  
+  const res = await fetch('http://192.168.1.111:5001/clasificar', {  
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ mensaje, asunto, dominio, horaEnvio, nivel })
@@ -44,7 +44,7 @@ async function clasificar() {
 // region  Feedback
 async function enviarFeedback(correcto) {
   // region Ip Server 1
-  await fetch('http://192.168.1.176:5001/feedback', {
+  await fetch('http://192.168.1.111:5001/feedback', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -84,7 +84,7 @@ async function guardarCorreo() {
   }
   
   // region Ip Server 2
-  const response = await fetch("http://192.168.1.176:5001/agregar_correo", {
+  const response = await fetch("http://192.168.1.111:5001/agregar_correo", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ texto: contenido, etiqueta: etiqueta, remitente: remitente })
